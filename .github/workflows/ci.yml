@@ -12,7 +12,7 @@ jobs:
     permissions:
       contents: read
     
-    
+
     steps:
     
       - name: Checkout Code
@@ -30,6 +30,7 @@ jobs:
           sonar-project-name: 'Bajaj Demo Node App'
           sonar-sources: '.'
           sonar-exclusions: 'node_modules/**,coverage/**,dist/**'
+
 
 
       # ── Docker Build & Push ──
