@@ -1,0 +1,53 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    name: Build and Push to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # SonarQube needs full git history for accurate analysis
+
+      # ── Security & Quality Gate (runs BEFORE Docker build) ──
+      - name: SonarQube Scan
+        uses: vishuops0210/shared-repo/.github/actions/sonarqube-scan@main
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
+          sonar-project-key: 'bajaj-demo-node-app'
+          sonar-project-name: 'Bajaj Demo Node App'
+          sonar-sources: '.'
+          sonar-exclusions: 'node_modules/**,coverage/**,dist/**'
+
+      # ── Docker Build & Push ──
+      - name: Setup Docker Hub Login
+        uses: vishuops0210/shared-repo/.github/actions/docker-login@main
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Setup Docker Buildx
+        uses: vishuops0210/shared-repo/.github/actions/setup-docker@main
+
+      - name: Build Docker Image
+        uses: vishuops0210/shared-repo/.github/actions/docker-build@main
+        with:
+          repository: '${{ secrets.DOCKERHUB_USERNAME }}/demo-node-app'
+          image-tag: ${{ github.sha }}
+
+      - name: Push Docker Image
+        uses: vishuops0210/shared-repo/.github/actions/docker-push@main
+        with:
+          repository: '${{ secrets.DOCKERHUB_USERNAME }}/demo-node-app'
+          image-tag: ${{ github.sha }}
