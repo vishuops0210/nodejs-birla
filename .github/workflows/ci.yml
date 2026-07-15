@@ -30,6 +30,7 @@ jobs:
           sonar-sources: '.'
           sonar-exclusions: 'node_modules/**,coverage/**,dist/**'
 
+
       # ── Docker Build & Push ──
       - name: Setup Docker Hub Login
         uses: vishuops0210/shared-repo/.github/actions/docker-login@main
