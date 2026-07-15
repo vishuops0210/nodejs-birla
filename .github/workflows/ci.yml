@@ -26,12 +26,10 @@ jobs:
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-          sonar-project-key: 'bajaj-demo-node-app'
-          sonar-project-name: 'Bajaj Demo Node App'
+          sonar-project-key: 'bajaj-nodejs'
+          sonar-project-name: 'Bajaj Node.js'
           sonar-sources: '.'
           sonar-exclusions: 'node_modules/**,coverage/**,dist/**'
-
-
 
       # ── Docker Build & Push ──
       - name: Setup Docker Hub Login
