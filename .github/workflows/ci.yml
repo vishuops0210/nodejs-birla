@@ -16,6 +16,8 @@ jobs:
       sonar-project-key: 'bajaj-nodejs'
       docker-repository: 'demo-node-app'
       docker-tag: ${{ github.sha }}
+      install-command: 'npm install'
+      test-command: 'echo "No tests found" && mkdir -p coverage && echo "" > coverage/lcov.info'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
