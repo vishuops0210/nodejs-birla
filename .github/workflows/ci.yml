@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   ci-pipeline:
     uses: vishuops0210/shared-repo/.github/workflows/node-ci.yml@main
