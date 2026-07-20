@@ -9,14 +9,17 @@ on:
       - main
 jobs:
   ci-pipeline:
-    uses: vishuops0210/shared-repo/.github/workflows/node-ci.yml@main
+    uses: vishuops0210/shared-repo/.github/workflows/ci-nodejs.yml@main
     with:
       node-version: '18'
       sonar-project-key: 'bajaj-nodejs'
       docker-repository: 'demo-node-app'
       docker-tag: ${{ github.sha }}
+      max-image-size-mb: '500'
+      sonar-exclusions: 'node_modules/**,coverage/**,*.test.js'
       install-command: 'npm install'
       test-command: 'npm run test:ci'
+      sonar-args: '-Dsonar.projectName="Bajaj Node.js App" -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
