@@ -1,12 +1,27 @@
 {
-  "name": "demo-node-app",
+  "name": "demo-nodejs-app",
   "version": "1.0.0",
-  "description": "Demo Node.js application for ECR deployment",
+  "description": "Node.js Demo App",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "jest",
+    "test:ci": "jest --ci --coverage"
   },
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "server.js"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
   }
 }

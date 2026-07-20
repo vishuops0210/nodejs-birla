@@ -16,7 +16,7 @@ jobs:
       docker-repository: 'demo-node-app'
       docker-tag: ${{ github.sha }}
       install-command: 'npm install'
-      test-command: 'echo "No tests found" && mkdir -p coverage && echo "" > coverage/lcov.info'
+      test-command: 'npm run test:ci'
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
