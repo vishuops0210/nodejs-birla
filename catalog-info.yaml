@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-github-demo
+  description: A test component to verify GitHub auto-discovery!
+  tags:
+    - testing
+    - github
+spec:
+  type: service
+  lifecycle: experimental
+  owner: guests
